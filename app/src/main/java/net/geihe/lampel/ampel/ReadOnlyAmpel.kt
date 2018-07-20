@@ -43,20 +43,10 @@ abstract class ReadOnlyAmpel {
             }
         }
 
-    val gruenzeit: Long
-        get() = statistik[Zustand.GRUEN]!!
-                .getGesamtZeitImZustand()
-
-    val gelbzeit: Long
-        get() = statistik[Zustand.GELB]!!
-                .getGesamtZeitImZustand()
-
-    val rotzeit: Long
-        get() = statistik[Zustand.ROT]!!
-                .getGesamtZeitImZustand()
-
-    val lautzeit: Long
-        get() = gelbzeit + rotzeit
+    fun gruenzeit() = statistik[Zustand.GRUEN]!!.getGesamtZeitImZustand()
+    fun gelbzeit() = statistik[Zustand.GELB]!!.getGesamtZeitImZustand()
+    fun rotzeit() = statistik[Zustand.ROT]!!.getGesamtZeitImZustand()
+    fun lautzeit() = gelbzeit() + rotzeit()
 
     protected fun aktualisiereZustand() {
 

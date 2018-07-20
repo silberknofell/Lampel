@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
+    android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".AmpelViewActivity">
 
     <LinearLayout
+        android:id="@+id/fussZeile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/footer"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" />
 
+    <net.geihe.lampel.MyAmpelView
+        android:id="@+id/ampel_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/fussZeile"/>
 
-        <net.geihe.lampel.MyAmpelView
-            android:id="@+id/ampel_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/anzeigeGross"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    </LinearLayout>
-</FrameLayout>
+    <TextView
+        android:id="@+id/textViewPause"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:text="@string/pause"
+        android:paddingTop="40sp"
+        android:textSize="80sp"
+        android:textColor="#80ffffff" />
+</RelativeLayout>
