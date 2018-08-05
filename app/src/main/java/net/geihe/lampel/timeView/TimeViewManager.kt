@@ -1,56 +1,22 @@
 package net.geihe.lampel.timeView
+
 import net.geihe.lampel.Mode
-import net.geihe.lampel.preferences.PrefHelper
 import java.util.*
 
 class TimeViewManager(private val timeViewFactory: TimeViewFactory) {
-    protected var viewsMap: HashMap<Mode, List<TimeView>>
+    private var viewsList: List<TimeView> = listOf()
 
-
-    init {
-        viewsMap = HashMap()
-        for (mode in Mode.values()) {
-            createViews(mode)
-        }
+    fun createViews(mode: Mode) {
+        viewsList.forEach { v -> v.remove() }
+        viewsList = timeViewFactory.createTimeViewList(mode, this)
+        viewsList.forEach { v -> v.show() }
     }
 
-    fun createViews() {
-        val mode = PrefHelper.mode;
-        createViews(mode)
+    fun update() {
+        viewsList.forEach { v -> v.update() }
     }
 
-    private fun createViews(mode: Mode) {
-        removeViews(mode)
-        viewsMap[mode] = timeViewFactory.createTimeViewList(mode)
-    }
-
-    fun showViews(mode: Mode) {
-        showViews(viewsMap[mode])
-    }
-
-    private fun showViews(views: List<TimeView>?) {
-        if (views != null && views.size > 0) {
-            for (tv in views) {
-                tv.show()
-            }
-        }
-    }
-
-    fun getTimeViewList(mode: Mode): List<TimeView> {
-        return viewsMap[mode]!!
-    }
-
-    fun removeViews(mode: Mode) {
-        val views = viewsMap[mode]
-        if (views != null && views.size > 0) {
-            for (tv in views) {
-                tv.remove()
-            }
-        }
-    }
-
-    fun update(mode: Mode) {
-        viewsMap[mode]?.forEach{ tv -> tv.update()}
-
+    fun hideAllLarge() {
+        viewsList.forEach { v -> v.hideLarge() }
     }
 }

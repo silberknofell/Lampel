@@ -6,11 +6,13 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="background">#000</color>
+    <color name="background_mute">#333333</color>
+    <color name="background_alarm">#f4352b</color>
     <color name="footer">#333333</color>
 
-    <color name="timeview_Red">#eef77770</color>
+    <color name="timeview_Red">#ffff0000</color>
     <color name="timeview_Yellow">#eeffff00</color>
     <color name="timeview_Green">#dd80dd80</color>
     <color name="timeview_Countdown">#ddcf18dc</color>
-    <color name="timeview_extra">#dd05ecec</color>
+    <color name="timeview_Extra">#dd05ecec</color>
 </resources>

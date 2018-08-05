@@ -8,9 +8,9 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import net.geihe.lampel.Lautstaerkemesser
 import net.geihe.lampel.ampel.Ampel
 import net.geihe.lampel.ampel.Zustand
+import net.geihe.lampel.preferences.AppPreferences
 
 /**
  * TODO: document your custom view class.
@@ -37,9 +37,9 @@ class MyAmpelView : View {
 
     //    private var ampel: ReadOnlyAmpel? = null
     private var modGrenzenVerschieben: Boolean = false
-    private var p_skalaAnzeigen: Boolean = false
+    private var p_skalaAnzeigen: Boolean = AppPreferences.skalaAnzeigen
 
-    constructor(context: Context) : super(context) {
+    constructor(ampelViewActivity: AmpelViewActivity) : super(ampelViewActivity) {
         init(null, 0)
     }
 
@@ -101,6 +101,17 @@ class MyAmpelView : View {
         backgroundPaint.color = Color.BLACK
     }
 
+    override fun onSizeChanged(height: Int, width: Int, height_old: Int,
+                               width_old: Int) {
+        padding_top = Math.round(SKALATEXTGROESSE)
+        readPrefs()
+    }
+
+    override fun onWindowVisibilityChanged(visibility: Int) {
+        if (visibility != View.VISIBLE) {
+            AppPreferences.paddingLeftRight = p_padding_left_right
+        }
+    }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -161,6 +172,11 @@ class MyAmpelView : View {
                 y += 0.2
             }
         }
+    }
+
+    fun readPrefs() {
+        p_skalaAnzeigen = AppPreferences.skalaAnzeigen
+        p_padding_left_right = AppPreferences.paddingLeftRight
     }
 
     private fun text(doubleZahl: Double): String {

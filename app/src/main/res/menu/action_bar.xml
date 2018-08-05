@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_actionbar">
+    <item
+        android:id="@+id/mic_on"
+        android:icon="@drawable/ic_mic_white_36dp"
+        android:title="Mic on"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mic_off"
+        android:icon="@drawable/ic_mic_off_white_36dp"
+        android:title="Mic off"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/countdown_pause"
+        android:icon="@drawable/ic_pause_white_36dp"
+        android:title="Mic on"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/countdown_resume"
+        android:icon="@drawable/ic_play_arrow_white_36dp"
+        android:title="Mic off"
+        app:showAsAction="always" />
+    <!-- Settings, should always be in the overflow -->
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_white_36dp"
+        android:title="Einstellungen"
+        app:showAsAction="always" />
+</menu>

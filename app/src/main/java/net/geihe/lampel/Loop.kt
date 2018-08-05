@@ -1,5 +1,6 @@
 package net.geihe.lampel
 import android.os.Handler
+import net.geihe.lampel.preferences.AppPreferences
 
 interface Updater {
     fun update()
@@ -12,7 +13,7 @@ class Loop(private val updater: Updater) : Runnable {
 
 
     private val handler: Handler = Handler()
-    private var abfrageIntervall = 100
+    private var abfrageIntervall = 200
 
     override fun run() {
         updater.update()
@@ -20,7 +21,7 @@ class Loop(private val updater: Updater) : Runnable {
     }
 
     fun start() {
-//        abfrageIntervall = PrefHelper.abfrageIntervall
+        abfrageIntervall = AppPreferences.abfrageIntervall
         handler.post(this)
     }
 

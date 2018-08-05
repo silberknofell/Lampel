@@ -6,28 +6,34 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import net.geihe.lampel.AmpelViewActivity
 import net.geihe.lampel.ampel.ReadOnlyAmpel
 import net.geihe.lampel.ampel.Zustand
 import net.geihe.lampel.ampel.ZustandsStatistik
-import net.geihe.lampel.preferences.PrefHelper
+import net.geihe.lampel.preferences.AppPreferences
 
 /**
  * Created by test on 19.09.2015.
  */
-abstract class TimeView(protected var context: Context, private val vgSmall: ViewGroup, private val vgLarge: ViewGroup, protected var ampel: ReadOnlyAmpel) : View.OnClickListener {
-    private var tvKlein: TextView? = null
-    private var tvGross: TextView? = null
+abstract class TimeView(
+        protected val ampelViewActivity: AmpelViewActivity,
+        private val vgSmall: ViewGroup,
+        private val vgLarge: ViewGroup,
+        protected val ampel: ReadOnlyAmpel
+) : View.OnClickListener {
+    private lateinit var tvKlein: TextView
+    private lateinit var tvGross: TextView
     private var isLarge: Boolean = false
 
 
     var color: Int = Color.GRAY
         set(color) {
-            tvKlein!!.setTextColor(color)
-            tvGross!!.setTextColor(color)
+            tvKlein.setTextColor(color)
+            tvGross.setTextColor(color)
         }
 
     protected val content
-        get() = text + "\n" + time()
+        get() = " $text \n " + time() + " "
 
     abstract val tag: String
     abstract val text: String
@@ -40,30 +46,29 @@ abstract class TimeView(protected var context: Context, private val vgSmall: Vie
         get() = tvKlein
 
     init {
-        createTextViewSmall(context)
-        createTextViewLarge(context)
+        createTextViewSmall(ampelViewActivity)
+        createTextViewLarge(ampelViewActivity)
         color = color
     }
 
     private fun createTextViewLarge(context: Context) {
         tvGross = TextView(context)
-        tvGross!!.textSize = TEXT_SIZE_LARGE.toFloat()
-        tvGross!!.gravity = Gravity.CENTER_HORIZONTAL
+        tvGross.textSize = TEXT_SIZE_LARGE.toFloat()
+        tvGross.gravity = Gravity.CENTER_HORIZONTAL
 
-        tvGross!!.setOnClickListener(this)
+        tvGross.setOnClickListener(this)
     }
 
     private fun createTextViewSmall(context: Context) {
         tvKlein = TextView(context)
-        tvKlein!!.textSize = TEXT_SIZE_SMALL.toFloat()
-        tvKlein!!.gravity = Gravity.CENTER_HORIZONTAL
-
-        tvKlein!!.setOnClickListener(this)
+        tvKlein.textSize = TEXT_SIZE_SMALL.toFloat()
+        tvKlein.gravity = Gravity.CENTER_HORIZONTAL
+        tvKlein.setOnClickListener(this)
     }
 
     fun show() {
         vgSmall.addView(tvKlein)
-        isLarge = PrefHelper.isTimeViewLarge(tag)
+        isLarge = AppPreferences.isTimeViewLarge(tag)
         if (isLarge) {
             showLarge()
         }
@@ -74,11 +79,12 @@ abstract class TimeView(protected var context: Context, private val vgSmall: Vie
     }
 
     fun update() {
-        tvKlein!!.text = content
-        tvGross!!.text = time()
+        tvKlein.text = content
+        tvGross.text = time()
     }
 
     private fun showLarge() {
+        ampelViewActivity.timeViewManager.hideAllLarge()
         vgLarge.removeAllViews()
         vgLarge.addView(tvGross)
         isLarge = true
@@ -92,7 +98,7 @@ abstract class TimeView(protected var context: Context, private val vgSmall: Vie
     }
 
     private fun setPref() {
-        PrefHelper.setTimeViewLarge(tag, isLarge)
+        AppPreferences.setTimeViewLarge(tag, isLarge)
     }
 
     fun remove() {

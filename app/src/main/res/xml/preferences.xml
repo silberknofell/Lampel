@@ -1,0 +1,15 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="main_preferencescreen">
+    <SwitchPreference
+        android:key="skala_anzeigen"
+        android:title="Lautstärkeskala anzeigen"
+        android:switchTextOn="Ja"
+        android:switchTextOff="Nein"
+        android:defaultValue="false"/>
+    <ListPreference
+        android:key="abfrageIntervall"
+        android:title="Abfrageintervall in ms"
+        android:entries="@array/abfrage_intervall"
+        android:defaultValue="500"/>
+</PreferenceScreen>

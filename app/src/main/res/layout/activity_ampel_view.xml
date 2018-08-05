@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical"
     tools:context=".AmpelViewActivity">
+
+<android.support.v7.widget.Toolbar
+    android:id="@+id/my_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="48sp"
+    android:background="#060c58"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
     <LinearLayout
         android:id="@+id/fussZeile"
@@ -20,10 +30,12 @@
         android:id="@+id/ampel_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/my_toolbar"
         android:layout_above="@id/fussZeile"/>
 
     <FrameLayout
         android:id="@+id/anzeigeGross"
+        android:layout_below="@id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -33,7 +45,8 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:text="@string/pause"
-        android:paddingTop="40sp"
+        android:paddingTop="5sp"
+        android:layout_below="@id/my_toolbar"
         android:textSize="80sp"
         android:textColor="#80ffffff" />
 </RelativeLayout>

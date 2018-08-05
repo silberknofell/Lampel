@@ -84,10 +84,10 @@ class ZustandsStatistik {
             laengsteZeitImZustand = java.lang.Long.parseLong(values[3])
             betretenZurZeit = java.lang.Long.parseLong(values[4])
         }
-
     }
 
     companion object {
         val LEER_STRING = "0;0;0;0;0"
+
     }
 }
